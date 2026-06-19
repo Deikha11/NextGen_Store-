@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Store - Future of Shopping</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800 sticky top-0 bg-slate-950/80 backdrop-blur-md z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-black tracking-wider text-indigo-500 neon-glow">NEXTGEN</span>
+                <span class="text-xs uppercase bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded border border-indigo-500/20 font-mono">Store</span>
+            </div>
+            <button id="cart-toggle-btn" class="relative p-2 text-slate-400 hover:text-indigo-400 transition-colors">
+                <i class="fa-solid fa-shopping-bag text-xl"></i>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        <!-- Hero Section -->
+        <section class="text-center mb-16 py-8">
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4 bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">
+                Upgrade Your Digital Ecosystem
+            </h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-lg mb-8">
+                Discover next-generation gear engineered for performance, speed, and absolute control.
+            </p>
+            <a href="#products" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-lg font-medium tracking-wide shadow-lg shadow-indigo-600/20 transition-all duration-200 inline-block">
+                Browse Collection
+            </a>
+        </section>
+
+        <!-- Product Section -->
+        <section id="products" class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-bold tracking-tight">Featured Gear</h2>
+                <span class="h-px bg-slate-800 flex-grow mx-4 hidden sm:block"></span>
+            </div>
+            
+            <!-- Products Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- JavaScript will inject products here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Shopping Cart Drawer (Sidebar) -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300 ease-in-out pointer-events-none">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto" id="cart-overlay"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-slate-900 border-l border-slate-800 p-6 flex flex-col justify-between pointer-events-auto shadow-2xl">
+            <div>
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+                    <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-indigo-500"></i> Your Cart</h3>
+                    <button id="cart-close-btn" class="text-slate-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+                <div id="cart-items-container" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                    <!-- Dynamic cart items -->
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-4 bg-slate-900">
+                <div class="flex justify-between text-base font-medium text-slate-300 mb-4">
+                    <p>Subtotal</p>
+                    <p id="cart-subtotal">$0.00</p>
+                </div>
+                <button id="checkout-trigger-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-md" id="checkout-overlay"></div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 sm:p-8 w-full max-w-lg relative z-10 shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold">Secure Checkout</h3>
+                <button id="checkout-close-btn" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <form id="checkout-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-medium mb-1.5">Full Name</label>
+                    <input type="text" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-slate-100 focus:outline-none focus:border-indigo-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-medium mb-1.5">Email Address</label>
+                    <input type="email" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-slate-100 focus:outline-none focus:border-indigo-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 font-medium mb-1.5">Shipping Address</label>
+                    <input type="text" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-slate-100 focus:outline-none focus:border-indigo-500 transition-colors">
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-3 rounded-lg font-medium transition-colors shadow-lg shadow-emerald-600/10">
+                        Complete Payment (<span id="checkout-total-btn-text">$0.00</span>)
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 bg-slate-950 mt-auto py-6 text-center text-xs text-slate-500 font-mono">
+        &copy; 2026 NEXTGEN STORE. ALL RIGHTS RESERVED.
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
